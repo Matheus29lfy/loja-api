@@ -17,14 +17,15 @@ class ProductController extends Controller
     {
         // Consulta (Query)
         $products = $this->productService->getAllProducts();
+        dd( $products);
         return response()->json($products);
     }
 
-    // public function store()
-    // {
-    //     // Comando (Command)
-    //     $newProduct = $this->productService->createProduct(request()->all());
-    //     return response()->json($newProduct, 201);
-    // }
+    public function store()
+    {
+        // Comando (Command)
+        $newProduct = $this->productService->createProduct(request()->all());
+        return response()->json($newProduct, 201);
+    }
 }
 
