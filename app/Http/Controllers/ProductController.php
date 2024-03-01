@@ -17,7 +17,6 @@ class ProductController extends Controller
     {
         // Consulta (Query)
         $products = $this->productService->getAllProducts();
-        dd( $products);
         return response()->json($products);
     }
 

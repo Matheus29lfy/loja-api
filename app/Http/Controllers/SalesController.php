@@ -27,11 +27,21 @@ class SalesController extends Controller
         return response()->json($sales);
     }
 
-    public function show($id)
-    {
-        $sale = Sale::with('products')->find($id);
+
+     public function getSaleById($id)
+     {
+          $sale = $this->salesService->getSaleById($id);
+
+           if (!$sale) {
+               return response()->json(['message' => 'Venda não encontrada'], 404);
+           }
+
         return response()->json($sale);
-    }
+            // return $this->salesRepository->getSaleById($id);
+        }
+        // $sale = Sale::with('products')->find($id);
+        // return response()->json($sale);
+
 
     // Implementar outros métodos conforme necessário
 }

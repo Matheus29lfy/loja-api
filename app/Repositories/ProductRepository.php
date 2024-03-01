@@ -10,12 +10,10 @@ class ProductRepository
     {
 
         return Product::all();
-        // return 'Teste';
     }
 
     public function create($data)
     {
-        // dd($data);
         return Product::create($data);
     }
 

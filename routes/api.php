@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\SaleController;
+use App\Http\Controllers\SaleProductController;
 use App\Http\Controllers\SalesController;
 
 /*
@@ -22,6 +22,9 @@ Route::get('/products', [ProductController::class, 'index']);
 Route::post('/products', [ProductController::class, 'store']);
 Route::get('/sales', [SalesController::class, 'index']);
 Route::post('/sales', [SalesController::class, 'store']);
+Route::post('/sales/{saleId}/add-product/{productId}', [SaleProductController::class, 'addProduct']);
+Route::delete('/sales/delete/{saleId}', [SaleProductController::class, 'deleteSale']);
+Route::get('/sales/{id}', [SalesController::class, 'getSaleById']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
