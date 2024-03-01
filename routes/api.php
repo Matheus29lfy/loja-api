@@ -17,16 +17,17 @@ use App\Http\Controllers\SalesController;
 |
 */
 
+/**Problema com rota sales quando tenho rotas do mesmo tipo ele se confunde e cai na primeira rota*/
 
 Route::get('/products', [ProductController::class, 'index']);
 Route::post('/products', [ProductController::class, 'store']);
 Route::get('/sales', [SalesController::class, 'index']);
 Route::post('/sales', [SalesController::class, 'store']);
+Route::get('/sales/get-finished', [SalesController::class, 'getAllFinished']);
 Route::get('/sales/{saleId}', [SalesController::class, 'getSaleById']);
 Route::post('/sales/{saleId}/add-product/{productId}', [SaleProductController::class, 'addProduct']);
 Route::delete('/sales/delete/{saleId}', [SaleProductController::class, 'deleteSale']);
 Route::post('/sales/finished/{saleId}', [SaleProductController::class, 'finishSale']);
-Route::get('/sales/finished', [SalesController::class, 'getAllFinished']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
