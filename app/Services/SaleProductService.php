@@ -22,4 +22,9 @@ class SaleProductService
     {
         return $this->saleProductRepository->deleteSale($saleId);
     }
+
+    public function finishSale($saleId)
+    {
+        return $this->saleProductRepository->finishSale($saleId);
+    }
 }

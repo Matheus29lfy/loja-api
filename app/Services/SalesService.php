@@ -40,6 +40,17 @@ class SalesService
         return $this->sumTotalAmount($sale);
     }
 
+
+    public function getAllFinished()
+    {
+        $sales =  $this->salesRepository->getAllFinished();
+
+        if(!$sales){
+           return $sales;
+         }
+
+          return $this->sumTotalAmountSales($sales);
+    }
     private function sumTotalAmount($sale)
     {
 

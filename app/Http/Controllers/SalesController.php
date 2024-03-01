@@ -36,11 +36,21 @@ class SalesController extends Controller
                return response()->json(['message' => 'Venda não encontrada'], 404);
            }
 
-        return response()->json($sale);
-            // return $this->salesRepository->getSaleById($id);
-        }
-        // $sale = Sale::with('products')->find($id);
-        // return response()->json($sale);
+            return response()->json($sale);
+      }
+
+        public function getAllFinished()
+        {
+             $sale = $this->salesService->getAllFinished();
+
+              if (!$sale) {
+                  return response()->json(['message' => 'Nenhuma venda foi finalizada foi encontrada'], 404);
+              }
+
+              return response()->json($sale);
+           }
+
+
 
 
     // Implementar outros métodos conforme necessário
