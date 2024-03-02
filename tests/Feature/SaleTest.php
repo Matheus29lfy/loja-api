@@ -56,6 +56,23 @@ class SaleTest extends TestCase
             'product_id' => $product->id,
         ]);
     }
+
+    public function testGetSaleById()
+    {
+        // Criar uma venda
+        $sale = Sale::create();
+
+        $response = $this->get("/api/sales/{$sale->id}");
+
+        $response->assertStatus(200);
+
+        $response->assertJson([
+            'id' => $sale->id,
+            'amount' => $sale->amount,
+            'created_at' => $sale->created_at->toISOString(),
+            'updated_at' => $sale->updated_at->toISOString(),
+        ]);
+    }
     // public function testCreateSaleWithProducts()
     // {
     //     // Criação de produtos para associar à venda
