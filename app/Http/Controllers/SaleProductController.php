@@ -44,7 +44,7 @@ class SaleProductController extends Controller
     {
         $this->saleProductService->deleteSale($saleId);
 
-        return response()->json(['message' => 'Deletado pedido com sucesso']);
+        return response()->json(['message' => 'Deletado pedido com sucesso'],204);
     }
     public function finishSale($saleId)
     {

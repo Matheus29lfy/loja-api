@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Product;
 use App\Models\Sale;
+use App\Models\SaleProduct;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -73,57 +74,44 @@ class SaleTest extends TestCase
             'updated_at' => $sale->updated_at->toISOString(),
         ]);
     }
-    // public function testCreateSaleWithProducts()
-    // {
-    //     // Criação de produtos para associar à venda
-    //     $products = [
-    //         [
-    //             'name' => 'Product 1',
-    //             'price' => 100.00,
-    //             'description' => 'Description 1',
-    //         ],
-    //         [
-    //             'name' => 'Product 2',
-    //             'price' => 200.00,
-    //             'description' => 'Description 2',
-    //         ],
-    //     ];
 
-    //     foreach ($products as $product) {
-    //         Product::create($product);
-    //     }
+    public function testGetAllFinishedSales()
+    {
+        $unfinishedSale = SaleProduct::factory()
+            ->count(3)
+            ->create();
 
-    //     // Dados para a criação da venda
-    //     $saleData = [
-    //         'amount' => 0,
-    //         'products' => [
-    //             ['product_id' => 1, 'quantity' => 2],
-    //             ['product_id' => 2, 'quantity' => 1],
-    //         ],
-    //     ];
+       $finishedSales =  SaleProduct::factory()
+            ->count(3)
+            ->state(['accomplished' => 'done'])
+            ->create();
 
-    //     // Criação da venda com os produtos associados
-    //     $response = $this->postJson('/api/sales', $saleData);
+        // Chama a rota
+        $response = $this->get('/api/sales/get-finished');
 
-    //     // Verificar se a resposta é bem-sucedida
-    //     $response->assertStatus(201);
+        $response->assertStatus(200);
 
-    //     // Verificar se a venda foi criada corretamente no banco de dados
-    //     $this->assertDatabaseHas('sales', [
-    //         'amount' => 0,
-    //     ]);
+        foreach ($finishedSales as $sale) {
+            $response->assertJsonFragment(['created_at' => $sale->created_at]);
+        }
 
-    //     // Verificar se os produtos foram associados corretamente à venda
-    //     $this->assertDatabaseHas('sale_products', [
-    //         'sale_id' => $response->json('id'),
-    //         'product_id' => 1,
-    //         'quantity' => 2,
-    //     ]);
+        // Verifica se a venda inacabada não está presente na resposta JSON
+        foreach ($unfinishedSale as $sale) {
+            $response->assertJsonMissing(['id' => $sale->id]);
+        }
+    }
 
-    //     $this->assertDatabaseHas('sale_products', [
-    //         'sale_id' => $response->json('id'),
-    //         'product_id' => 2,
-    //         'quantity' => 1,
-    //     ]);
-    //   }
+    public function testCanceledSale()
+    {
+
+       $canceledSale =  SaleProduct::factory()
+            ->state(['accomplished' => 'canceled'])
+            ->create();
+
+        $response = $this->delete("/api/sales/delete/{$canceledSale->id}");
+
+        $response->assertStatus(204);
+
+        $this->assertDatabaseMissing('sales', ['id' => $canceledSale->id]);
+    }
     }
