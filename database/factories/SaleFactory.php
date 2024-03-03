@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Sale;
+use App\Models\Sales;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,7 +16,7 @@ class SaleFactory extends Factory
      * @return array<string, mixed>
      */
 
-     protected $model = Sale::class;
+     protected $model = Sales::class;
     public function definition(): array
     {
      return [
@@ -24,7 +24,7 @@ class SaleFactory extends Factory
     ];
     }
 
-    // $factory->define(App\Models\Sale::class, function (Faker $faker) {
+    // $factory->define(App\Models\Sales::class, function (Faker $faker) {
 
     // });
 }

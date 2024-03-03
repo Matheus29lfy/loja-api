@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Product;
-use App\Models\Sale;
+use App\Models\Sales;
 use App\Models\SaleProduct;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -23,7 +23,7 @@ class SaleProductFactory extends Factory
     {
 
         $productId = Product::factory()->create()->id;
-        $saleId = Sale::factory()->create()->id;
+        $saleId = Sales::factory()->create()->id;
 
         return [
             'product_id' =>  $productId,

@@ -1,8 +1,7 @@
 <?php
 namespace App\Repositories;
 
-use App\Models\Product;
-use App\Models\Sale;
+use App\Models\Sales;
 use Illuminate\Support\Facades\DB;
 
 class SalesRepository
@@ -12,7 +11,7 @@ class SalesRepository
     public function getAll()
     {
 
-       return Sale::with(['products' => function ($query) {
+       return Sales::with(['products' => function ($query) {
             $query->select('name', 'description', 'sale_products.quantity', DB::raw('price * sale_products.quantity as price'));
         }])
         ->selectRaw('sales.*,  COALESCE(SUM(price * sale_products.quantity), 0) as total_amount')
@@ -25,11 +24,11 @@ class SalesRepository
 
     public function create()
     {
-        return Sale::create();
+        return Sales::create();
     }
     public function getSaleById($id)
     {
-       return Sale::with(['products' => function ($query) {
+       return Sales::with(['products' => function ($query) {
             $query->select('name', 'description', 'sale_products.quantity', DB::raw('price * sale_products.quantity as price'));
         }])
         ->selectRaw('sales.*, COALESCE(SUM(price * sale_products.quantity), 0) as total_amount')
@@ -43,7 +42,7 @@ class SalesRepository
     public function getAllFinished()
     {
 
-       return Sale::with(['products' => function ($query) {
+       return Sales::with(['products' => function ($query) {
             $query->select('name', 'description', 'sale_products.quantity', DB::raw('price * sale_products.quantity as price'));
         }])
         ->selectRaw('sales.*,  COALESCE(SUM(price * sale_products.quantity), 0) as total_amount')

@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Product;
-use App\Models\Sale;
+use App\Models\Sales;
 use App\Models\SaleProduct;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -37,7 +37,7 @@ class SaleTest extends TestCase
     public function testAddProductToSale()
     {
         // Criar uma venda
-        $sale = Sale::create();
+        $sale = Sales::create();
 
         $product = [
                         'name' => 'Product 1',
@@ -61,7 +61,7 @@ class SaleTest extends TestCase
     public function testGetSaleById()
     {
         // Criar uma venda
-        $sale = Sale::create();
+        $sale = Sales::create();
 
         $response = $this->get("/api/sales/{$sale->id}");
 

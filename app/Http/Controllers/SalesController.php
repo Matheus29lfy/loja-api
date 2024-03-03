@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Sale;
+use App\Models\Sales;
 use App\Models\Product;
 use App\Services\SalesService;
 use Illuminate\Http\Response;
