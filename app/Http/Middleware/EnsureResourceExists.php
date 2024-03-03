@@ -10,14 +10,14 @@ class EnsureResourceExists
 {
     public function handle(Request $request, Closure $next, $resource)
     {
-        dd($resource);
         $modelClass = "App\\Models\\" . ucfirst($resource);
 
         if (!class_exists($modelClass)) {
             abort(500, "Invalid resource class.");
         }
 
-        $resourceId = $request->route($resource);
+        $resourceId = $request->route('saleId');
+        // dd($resourceId);
 
         $resourceInstance = $modelClass::find($resourceId);
 

@@ -15,23 +15,6 @@ class SaleProductRepository
         ]);
     }
 
-    public function canceledSale($saleId)
-    {
-     return SaleProduct::where('sale_id', $saleId)
-           ->update(['accomplished' => 'canceled']);
-    }
-
-
-
-    public function finishSale($saleId)
-    {
-        return SaleProduct::where('sale_id', $saleId)
-        ->update(['accomplished' => 'done']);
-    }
-
-
-
-
 }
 
 

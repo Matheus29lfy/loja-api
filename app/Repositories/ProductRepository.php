@@ -16,14 +16,5 @@ class ProductRepository
     {
         return Product::create($data);
     }
-
-    // public function definition()
-    // {
-    //     return [
-    //         'name' => $this->faker->word,
-    //         'price' => $this->faker->randomFloat(2, 10, 1000),
-    //         'description' => $this->faker->sentence,
-    //     ];
-    // }
 }
 

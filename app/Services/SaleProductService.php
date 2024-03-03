@@ -18,13 +18,4 @@ class SaleProductService
         return $this->saleProductRepository->addProduct($saleId, $productId, $quantity);
     }
 
-    public function canceledSale($saleId)
-    {
-        return $this->saleProductRepository->canceledSale($saleId);
-    }
-
-    public function finishSale($saleId)
-    {
-        return $this->saleProductRepository->finishSale($saleId);
-    }
 }

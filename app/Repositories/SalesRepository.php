@@ -48,9 +48,24 @@ class SalesRepository
         ->selectRaw('sales.*,  COALESCE(SUM(price * sale_products.quantity), 0) as total_amount')
         ->leftJoin('sale_products', 'sales.id', '=', 'sale_products.sale_id')
         ->leftJoin('products', 'products.id', '=', 'sale_products.product_id')
-        ->where('sale_products.accomplished', '=', self::ACCOMPLISHED_DONE)
+        ->where('sales.accomplished', '=', self::ACCOMPLISHED_DONE)
         ->groupBy('sales.id', 'sales.amount','sale_products.quantity', 'created_at','updated_at')
         ->get();
+    }
+
+
+    public function canceledSale($saleId)
+    {
+     return Sales::where('id', $saleId)
+           ->update(['accomplished' => 'canceled']);
+    }
+
+
+
+    public function finishSale($saleId)
+    {
+        return Sales::where('id', $saleId)
+        ->update(['accomplished' => 'done']);
     }
 }
 

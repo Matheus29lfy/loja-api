@@ -61,7 +61,40 @@ class SalesController extends Controller
            }
 
 
+           public function canceledSale($saleId)
+           {
 
+               try {
+                   $this->salesService->canceledSale($saleId);
 
-    // Implementar outros métodos conforme necessário
+                   return response()->json(['message' => 'Cancelado pedido com sucesso']);
+
+                   }catch (\Exception $e) {
+
+                       return response()->json(['error' => 'Erro ao cancelar o pedido.
+                                                Detalhes: ' . $e->getMessage()],
+                                               Response::HTTP_INTERNAL_SERVER_ERROR);
+
+                   }
+
+           }
+           public function finishSale($saleId)
+           {
+
+               try {
+
+                   $this->salesService->finishSale($saleId);
+
+                   return response()->json(['message' => 'Pedido finalizado com sucesso'],201);
+
+                   }catch (\Exception $e) {
+
+                       return response()->json(['error' => 'Erro ao finalizar o pedido.
+                                                Detalhes: ' . $e->getMessage()],
+                                               Response::HTTP_INTERNAL_SERVER_ERROR);
+
+                   }
+
+           }
+
 }

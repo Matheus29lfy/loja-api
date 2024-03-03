@@ -48,42 +48,5 @@ class SaleProductController extends Controller
     // }
 
 
-    public function canceledSale($saleId)
-    {
-
-        try {
-            $this->saleProductService->canceledSale($saleId);
-
-            return response()->json(['message' => 'Cancelado pedido com sucesso']);
-
-            }catch (\Exception $e) {
-
-                return response()->json(['error' => 'Erro ao cancelar o pedido.
-                                         Detalhes: ' . $e->getMessage()],
-                                        Response::HTTP_INTERNAL_SERVER_ERROR);
-
-            }
-
-    }
-    public function finishSale($saleId)
-    {
-
-        try {
-
-            $this->saleProductService->finishSale($saleId);
-
-            return response()->json(['message' => 'Pedido finalizado com sucesso'],201);
-
-            }catch (\Exception $e) {
-
-                return response()->json(['error' => 'Erro ao finalizar o pedido.
-                                         Detalhes: ' . $e->getMessage()],
-                                        Response::HTTP_INTERNAL_SERVER_ERROR);
-
-            }
-
-    }
-
-
 }
 

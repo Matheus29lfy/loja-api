@@ -51,6 +51,16 @@ class SalesService
 
           return $this->sumTotalAmountSales($sales);
     }
+
+    public function canceledSale($saleId)
+    {
+        return $this->salesRepository->canceledSale($saleId);
+    }
+
+    public function finishSale($saleId)
+    {
+        return $this->salesRepository->finishSale($saleId);
+    }
     private function sumTotalAmount($sale)
     {
 
