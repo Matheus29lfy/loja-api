@@ -26,8 +26,8 @@ Route::post('/sales', [SalesController::class, 'store']);
 Route::get('/sales/get-finished', [SalesController::class, 'getAllFinished']);
 Route::get('/sales/{saleId}', [SalesController::class, 'getSaleById']);
 Route::post('/sales/{saleId}/add-product/{productId}', [SaleProductController::class, 'addProduct']);
-Route::delete('/sales/delete/{saleId}', [SaleProductController::class, 'deleteSale']);
-Route::post('/sales/finished/{saleId}', [SaleProductController::class, 'finishSale']);
+Route::put('/sales/canceled/{saleId}', [SaleProductController::class, 'canceledSale']);
+Route::put('/sales/finished/{saleId}', [SaleProductController::class, 'finishSale']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

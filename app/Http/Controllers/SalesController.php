@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Models\Sale;
 use App\Models\Product;
 use App\Services\SalesService;
+use Illuminate\Http\Response;
 
 class SalesController extends Controller
 {
@@ -18,13 +19,22 @@ class SalesController extends Controller
     public function index()
     {
         $sales = $this->salesService->getAllSales();
+
+        if (!$sales) {
+            return response()->json(['message' => 'Não foi encontrado vendas '], 404);
+        }
         return response()->json($sales);
     }
 
-    public function store(Request $request)
+    public function store()
     {
-        $sales = $this->salesService->createSales($request->all());
-        return response()->json($sales, 201);
+        try {
+            $sales = $this->salesService->createSales();
+            return response()->json($sales, 201);
+        }catch (\Exception $e) {
+            return response()->json(['error' => 'Erro ao criar vendas. Detalhes: ' . $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
     }
 
 
@@ -44,7 +54,7 @@ class SalesController extends Controller
              $sale = $this->salesService->getAllFinished();
 
               if (!$sale) {
-                  return response()->json(['message' => 'Nenhuma venda foi finalizada foi encontrada'], 404);
+                  return response()->json(['message' => 'Nenhuma venda finalizada foi encontrada'], 404);
               }
 
               return response()->json($sale);

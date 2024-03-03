@@ -15,7 +15,7 @@ class SaleProductRepository
         ]);
     }
 
-    public function deleteSale($saleId)
+    public function canceledSale($saleId)
     {
      return SaleProduct::where('sale_id', $saleId)
            ->update(['accomplished' => 'canceled']);

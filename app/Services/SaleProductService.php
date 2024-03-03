@@ -18,9 +18,9 @@ class SaleProductService
         return $this->saleProductRepository->addProduct($saleId, $productId, $quantity);
     }
 
-    public function deleteSale($saleId)
+    public function canceledSale($saleId)
     {
-        return $this->saleProductRepository->deleteSale($saleId);
+        return $this->saleProductRepository->canceledSale($saleId);
     }
 
     public function finishSale($saleId)

@@ -23,9 +23,9 @@ class SalesRepository
         ->get();
     }
 
-    public function create($data)
+    public function create()
     {
-        return Sale::create($data);
+        return Sale::create();
     }
     public function getSaleById($id)
     {

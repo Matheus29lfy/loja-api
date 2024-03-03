@@ -24,9 +24,9 @@ class SalesService
           return $this->sumTotalAmountSales($sales);
     }
 
-    public function createSales($data)
+    public function createSales()
     {
-        return $this->salesRepository->create($data);
+        return $this->salesRepository->create();
     }
 
 

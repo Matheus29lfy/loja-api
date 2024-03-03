@@ -2,9 +2,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Sale;
-use App\Models\Product;
 use App\Services\SaleProductService;
+use Illuminate\Http\Response;
 
 class SaleProductController extends Controller
 {
@@ -16,41 +15,73 @@ class SaleProductController extends Controller
     }
     public function addProduct(Request $request, $saleId, $productId)
     {
-     // Validar a quantidade fornecida
-     $request->validate([
-        'quantity' => 'required|integer|min:1',
-    ]);
 
-    $quantity = $request->input('quantity');
+        try {
+        // Validar a quantidade fornecida
+         $request->validate([
+            'quantity' => 'required|integer|min:1',
+         ]);
 
-    $this->saleProductService->addProduct($saleId, $productId, $quantity);
+         $quantity = $request->input('quantity');
 
-    return response()->json(['message' => 'Produto adicionado ao pedido com sucesso']);
+         $this->saleProductService->addProduct($saleId, $productId, $quantity);
 
+         return response()->json(['message' => 'Produto adicionado ao pedido com sucesso'],201);
+
+        }catch (\Exception $e) {
+
+            return response()->json(['error' => 'Erro ao adicionar
+                                    produto a uma venda. Detalhes: ' . $e->getMessage()],
+                                    Response::HTTP_INTERNAL_SERVER_ERROR);
+
+        }
     }
 
-    public function showSale($saleId)
+    // public function showSale($saleId)
+    // {
+    //     // Recuperar a venda com os produtos associados
+    //     $sale = Sale::with(['products' => function ($query) {
+    //         $query->select('products.*', 'sales_product.quantity as amount');
+    //     }])->findOrFail($saleId);
+
+    //     return response()->json($sale);
+    // }
+
+
+    public function canceledSale($saleId)
     {
-        // Recuperar a venda com os produtos associados
-        $sale = Sale::with(['products' => function ($query) {
-            $query->select('products.*', 'sales_product.quantity as amount');
-        }])->findOrFail($saleId);
 
-        return response()->json($sale);
-    }
+        try {
+            $this->saleProductService->canceledSale($saleId);
 
+            return response()->json(['message' => 'Cancelado pedido com sucesso'],201);
 
-    public function deleteSale($saleId)
-    {
-        $this->saleProductService->deleteSale($saleId);
+            }catch (\Exception $e) {
 
-        return response()->json(['message' => 'Deletado pedido com sucesso'],204);
+                return response()->json(['error' => 'Erro ao cancelar o pedido.
+                                         Detalhes: ' . $e->getMessage()],
+                                        Response::HTTP_INTERNAL_SERVER_ERROR);
+
+            }
+
     }
     public function finishSale($saleId)
     {
-        $this->saleProductService->finishSale($saleId);
 
-        return response()->json(['message' => 'Pedido finalizado com sucesso']);
+        try {
+
+            $this->saleProductService->finishSale($saleId);
+
+            return response()->json(['message' => 'Pedido finalizado com sucesso'],201);
+
+            }catch (\Exception $e) {
+
+                return response()->json(['error' => 'Erro ao finalizar o pedido.
+                                         Detalhes: ' . $e->getMessage()],
+                                        Response::HTTP_INTERNAL_SERVER_ERROR);
+
+            }
+
     }
 
 
