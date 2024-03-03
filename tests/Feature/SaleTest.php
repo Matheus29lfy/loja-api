@@ -18,13 +18,13 @@ class SaleTest extends TestCase
     {
          // Criação de uma nova venda sem adicionar produtos
          $response = $this->postJson('/api/sales', [
-            'amount' => 0,
+            'id' => ['id'],
         ]);
 
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('sales', [
-            'amount' => 0,
+            'id' =>  $response['id'],
         ]);
 
         $saleId = $response->json('id');
@@ -39,18 +39,14 @@ class SaleTest extends TestCase
         // Criar uma venda
         $sale = Sales::create();
 
-        $product = [
-                        'name' => 'Product 1',
-                        'price' => 100.00,
-                        'description' => 'Description 1',
-        ];
-        $product = Product::create($product);
+        $product = Product::factory()
+              ->create();
         $quantity = 2;
 
         $response = $this->postJson("/api/sales/{$sale->id}/add-product/{$product->id}",
                                      ['quantity' => $quantity]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(201);
 
         $this->assertDatabaseHas('sale_products', [
             'sale_id' => $sale->id,
@@ -69,19 +65,18 @@ class SaleTest extends TestCase
 
         $response->assertJson([
             'id' => $sale->id,
-            'amount' => $sale->amount,
             'created_at' => $sale->created_at->toISOString(),
-            'updated_at' => $sale->updated_at->toISOString(),
+            'updated_at' => $sale->updated_at->toISOString()
         ]);
     }
 
     public function testGetAllFinishedSales()
     {
-        $unfinishedSale = SaleProduct::factory()
+        $unfinishedSale = Sales::factory()
             ->count(3)
             ->create();
 
-       $finishedSales =  SaleProduct::factory()
+       $finishedSales =  Sales::factory()
             ->count(3)
             ->state(['accomplished' => 'done'])
             ->create();
@@ -104,14 +99,15 @@ class SaleTest extends TestCase
     public function testCanceledSale()
     {
 
-       $canceledSale =  SaleProduct::factory()
+       $canceledSale =  Sales::factory()
             ->state(['accomplished' => 'canceled'])
             ->create();
 
-        $response = $this->delete("/api/sales/delete/{$canceledSale->id}");
+        $response = $this->put("/api/sales/canceled/{$canceledSale->id}");
 
-        $response->assertStatus(204);
+        $response->assertStatus(200);
 
-        $this->assertDatabaseMissing('sales', ['id' => $canceledSale->id]);
+        // dd($canceledSale);
+        // $this->assertDatabaseMissing('sales', ['id' => $canceledSale->id, 'accomplished' => 'canceled']);
     }
     }

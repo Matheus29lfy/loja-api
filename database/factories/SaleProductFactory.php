@@ -31,14 +31,4 @@ class SaleProductFactory extends Factory
             'quantity' => $this->faker->randomFloat(2, 100, 1000),
         ];
     }
-
-    // public function configure()
-    // {
-    //     return $this->afterCreating(function (SaleProduct $saleProduct) {
-    //         // Adicione lógica personalizada conforme necessário
-    //         if ($saleProduct->accomplished === 'done') {
-    //             // Faça algo específico quando accomplished é 'done'
-    //         }
-    //     });
-    // }
 }

@@ -26,9 +26,10 @@ Route::post('/sales', [SalesController::class, 'store']);
 Route::get('/sales/get-finished', [SalesController::class, 'getAllFinished']);
 Route::get('/sales/{saleId}', [SalesController::class, 'getSaleById']);
 Route::post('/sales/{saleId}/add-product/{productId}', [SaleProductController::class, 'addProduct']);
-Route::put('/sales/canceled/{saleId}', [SaleProductController::class, 'canceledSale'])
+Route::put('/sales/canceled/{saleId}', [SalesController::class, 'canceledSale'])
         ->middleware('ensure.exists:sales');
-Route::put('/sales/finished/{saleId}', [SaleProductController::class, 'finishSale']);
+Route::put('/sales/finished/{saleId}', [SalesController::class, 'finishSale'])
+    ->middleware('ensure.exists:sales');
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

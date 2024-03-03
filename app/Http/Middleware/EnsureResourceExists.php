@@ -13,16 +13,15 @@ class EnsureResourceExists
         $modelClass = "App\\Models\\" . ucfirst($resource);
 
         if (!class_exists($modelClass)) {
-            abort(500, "Invalid resource class.");
+            return response()->json(['error' => ucfirst($resource) . " not found."], 500);
         }
 
         $resourceId = $request->route('saleId');
-        // dd($resourceId);
 
         $resourceInstance = $modelClass::find($resourceId);
 
         if (!$resourceInstance) {
-            abort(404, ucfirst($resource) . " not found.");
+            return response()->json(['error' => ucfirst($resource) . " not found with invalid Id"], 404);
         }
 
         return $next($request);

@@ -3,7 +3,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sales;
-use App\Models\Product;
 use App\Services\SalesService;
 use Illuminate\Http\Response;
 
@@ -83,6 +82,12 @@ class SalesController extends Controller
 
                try {
 
+                    $sale = Sales::findOrFail($saleId);
+
+                     // Verifique se existem produtos vinculados à venda
+                    if ($sale->products()->count() === 0) {
+                        return response()->json(['error' => 'Pedido não pode ser finalizado sem ter produtos.'], 400);
+                    }
                    $this->salesService->finishSale($saleId);
 
                    return response()->json(['message' => 'Pedido finalizado com sucesso'],201);

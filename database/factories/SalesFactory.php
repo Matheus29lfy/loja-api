@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Sale>
  */
-class SaleFactory extends Factory
+class SalesFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -20,7 +20,7 @@ class SaleFactory extends Factory
     public function definition(): array
     {
      return [
-        'amount' => $this->faker->randomFloat(2, 100, 1000),
+        'accomplished' => 'draft',
     ];
     }
 
