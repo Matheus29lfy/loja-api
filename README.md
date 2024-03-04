@@ -17,7 +17,7 @@
  - Se a chave app:key ainda estiver vazia no .env, execute "php artisan key:generate" no seu terminal após acessar o contêiner PHP no Docker.
  - Para executar comandos artisan, como migrate, etc., vá para o contêiner PHP usando "docker exec -it php /bin/sh".
 # Rodar migrations
- php artisan migrate
+- php artisan migrate
 
  # Rodar seeders
 
