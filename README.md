@@ -5,6 +5,7 @@
  ### Clone esse template para seu projeto
 
  - git clone https://github.com/Matheus29lfy/loja-api.git
+ - Acesse a pasta cd loja-api
 
  ## Rode App Manualmente
  - Crie um arquivo .env para o ambiente Laravel a partir do .env.example na pasta src.
