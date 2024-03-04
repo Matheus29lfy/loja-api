@@ -9,12 +9,10 @@
 
  ## Rode App Manualmente
  - Crie um arquivo .env para o ambiente Laravel a partir do .env.example na pasta src.
+ - na pasta src rode "composer install"
  - Execute o comando docker-compose build no seu terminal.
- - Execute o comando docker-compose up -d no seu terminal.
  - Execute o comando docker-compose -f docker-compose.yml -f docker-compose.testing.yml up -d no seu terminal para configurar o ambiente de testing.  
  - Execute o comando docker exec -it php /bin/sh no seu terminal.
- - Execute o comando chmod -R 777 storage no seu terminal após acessar o contêiner PHP no Docker.
-- Execute o comando composer install no seu terminal após acessar o contêiner PHP no Docker.
  - Se a chave app:key ainda estiver vazia no .env, execute php artisan key:generate no seu terminal após acessar o contêiner PHP no Docker.
  - Para executar comandos artisan, como migrate, etc., vá para o contêiner PHP usando docker exec -it php /bin/sh.
 # Rodar migrations
