@@ -16,6 +16,12 @@
 - Execute o comando composer install no seu terminal após acessar o contêiner PHP no Docker.
  - Se a chave app:key ainda estiver vazia no .env, execute php artisan key:generate no seu terminal após acessar o contêiner PHP no Docker.
  - Para executar comandos artisan, como migrate, etc., vá para o contêiner PHP usando docker exec -it php /bin/sh.
+ # Rodar seeders
+
+ php artisan db:seed --class=ProductSeeder
+ php artisan db:seed --class=SaleSeeder
+ php artisan db:seed --class=ProductSeeder
+ 
  - Acesse http://localhost:8001 ou a porta que você definiu para abrir o Laravel.
 
  Nota: Se você encontrar um erro de permissão ao executar o Docker, tente executá-lo como administrador ou use sudo no Linux.
