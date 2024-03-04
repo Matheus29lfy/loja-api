@@ -27,8 +27,9 @@
  - "php artisan db:seed --class=SaleProductSeeder"
 
 
-*para ambiente de testing*
- php artisan migrate --env=testing
+#Para ambiente de testing
+ - "php artisan migrate --env=testing"
+ - "php artisan testing"
 
  - Acesse http://localhost:8001 ou a porta que você definiu para abrir o Laravel.
 
