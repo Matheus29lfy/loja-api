@@ -13,7 +13,7 @@
  - Execute o comando "docker-compose build" no seu terminal.
  - Execute o comando "docker-compose -f docker-compose.yml -f docker-compose.testing.yml up -d" no seu terminal para configurar o ambiente de testing.  
  - Execute o comando "docker exec -it php /bin/sh" no seu terminal.
- - Se a chave app:key ainda estiver vazia no .env, execute php artisan key:generate no seu terminal após acessar o contêiner PHP no Docker.
+ - Se a chave app:key ainda estiver vazia no .env, execute "php artisan key:generate" no seu terminal após acessar o contêiner PHP no Docker.
  - Para executar comandos artisan, como migrate, etc., vá para o contêiner PHP usando "docker exec -it php /bin/sh".
 # Rodar migrations
  php artisan migrate
