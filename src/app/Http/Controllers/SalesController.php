@@ -25,7 +25,7 @@ class SalesController extends Controller
         return response()->json($sales);
     }
 
-    public function store()
+    public function create()
     {
         try {
             $sales = $this->salesService->createSales();

@@ -22,7 +22,7 @@ use App\Http\Controllers\SalesController;
 Route::get('/products', [ProductController::class, 'index']);
 Route::post('/products', [ProductController::class, 'store']);
 Route::get('/sales', [SalesController::class, 'index']);
-Route::post('/sales', [SalesController::class, 'store']);
+Route::post('/sales', [SalesController::class, 'create']);
 Route::get('/sales/get-finished', [SalesController::class, 'getAllFinished']);
 Route::get('/sales/{saleId}', [SalesController::class, 'getSaleById']);
 Route::post('/sales/{saleId}/add-product/{productId}', [SaleProductController::class, 'addProduct']);
