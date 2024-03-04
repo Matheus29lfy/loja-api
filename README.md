@@ -20,9 +20,10 @@
 
  # Rodar seeders
 
- "php artisan db:seed --class=ProductSeeder"
- "php artisan db:seed --class=SaleSeeder"
- "php artisan db:seed --class=SaleProductSeeder"
+ 
+ - "php artisan db:seed --class=ProductSeeder"
+ - "php artisan db:seed --class=SaleSeeder"
+ - "php artisan db:seed --class=SaleProductSeeder"
 
 
 *para ambiente de testing*
