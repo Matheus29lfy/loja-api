@@ -10,6 +10,7 @@
  ## Rode App Manualmente
  - Crie um arquivo .env para o ambiente Laravel a partir do .env.example na pasta src.
  - na pasta src rode "composer install"
+ - Volte para a raiz para rodar os comandos docker executando cd ..
  - Execute o comando "docker-compose build" no seu terminal.
  - Execute o comando "docker-compose -f docker-compose.yml -f docker-compose.testing.yml up -d" no seu terminal para configurar o ambiente de testing.  
  - Execute o comando "docker exec -it php /bin/sh" no seu terminal.
