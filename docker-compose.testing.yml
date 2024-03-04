@@ -32,11 +32,11 @@ services:
         volumes: 
             - ./mysql:/var/lib/mysql
         environment: 
-            MYSQL_DATABASE: laravel_loja
+            MYSQL_DATABASE: laravel_test
             MYSQL_USER: root
             MYSQL_PASSWORD: root
             MYSQL_ROOT_PASSWORD: root
-            SERVICE_TAGS: dev
+            SERVICE_TAGS: testing
             SERVICE_NAME: mysql
         networks: 
             - laravel
