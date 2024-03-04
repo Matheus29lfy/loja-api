@@ -1,31 +1,47 @@
-version: '3'
-
+version: "3.0"
 services:
   app:
     build:
-      context: .
+    #   args:
+    #     user: [current-user]
+    #     uid: 1000
+      context: ./
       dockerfile: Dockerfile
     image: loja-api
     container_name: loja-api
-    restart: unless-stopped
-    working_dir: /var/www/html
+    # restart: always
+    working_dir: /var/www/
     volumes:
-      - .:/var/www/html
-    ports:
-      - "8000:8000"
-
-  mysql:
-    image: mysql:latest
-    container_name: loja-api_mysql
+      - ./:/var/www
+    networks:
+      - loja-api
+  db:
+    image: mysql:8.0
+    container_name: loja-api-db
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: "laravel"
-      MYSQL_USER: "root"
-      MYSQL_PASSWORD: "root"
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: root
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
     ports:
       - "3306:3306"
     volumes:
-      - mysql-data:/var/lib/mysql
+      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - loja-api
 
-volumes:
-  mysql-data:
+  nginx:
+    image: nginx:alpine
+    container_name: loja-api
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - loja-api
+networks:
+  loja-api:
+    driver: bridge
